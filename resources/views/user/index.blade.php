@@ -34,6 +34,8 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -48,6 +50,8 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone }}</td>
                                                 <td>{{ roles($user->role_id) }}</td>
                                                 <td>
                                                     @if ($user->status == '1')
@@ -57,8 +61,10 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="#"><i class="fas fa-edit"></i></a>
-                                                    <a href="#"><i class="fas fa-trash"></i></a>
+                                                    <a href="{{ route('user.edit', $user->guid) }}"><i
+                                                            class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('user.delete', $user->guid) }}"><i
+                                                            class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -84,7 +90,5 @@
 @endsection
 
 @section('script')
-    <script>
-        
-    </script>
+    <script></script>
 @endsection

@@ -49,7 +49,18 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+        $user = Auth::user();
+
+        if (in_array($user->role_id, [1, 2]) && $user->status == 1 && $user->is_deleted != 1) {
+            RateLimiter::clear($this->throttleKey());
+        } else {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => 'Sorry! Your Email is block. Please Contact with Administrator.',
+            ]);
+        }
     }
 
     /**
@@ -80,6 +91,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }

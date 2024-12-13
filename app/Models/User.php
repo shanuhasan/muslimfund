@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Account::class);
     }
+
+    static public function findByGuid($guid)
+    {
+        return self::where('guid', $guid)->first();
+    }
 }

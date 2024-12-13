@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -11,7 +13,6 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\UserController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -66,6 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
     Route::get('/user/{guid}/edit', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/user/{guid}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/{guid}', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/{guid}', [UserController::class, 'destroy'])->name('user.delete');
+
+
+    Route::post('/upload-image', [UploadImageController::class, 'create'])->name('media.create');
 });

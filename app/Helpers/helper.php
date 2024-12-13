@@ -200,7 +200,7 @@ function status($key = null)
 {
     $list = [
         '1' => 'Active',
-        '0' => 'Inactive',
+        '2' => 'Inactive',
     ];
 
     return !empty($key) ? $list[$key] : $list;

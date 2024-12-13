@@ -34,14 +34,16 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('user') }}" class="nav-link @yield('user')">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                        </p>
-                    </a>
-                </li>
+                @if (Auth::user()->getOriginal('role_id') == 1)
+                    <li class="nav-item">
+                        <a href="{{ route('user') }}" class="nav-link @yield('user')">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Users
+                            </p>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
