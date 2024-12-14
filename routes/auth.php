@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -69,6 +71,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{guid}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/user/{guid}', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/{guid}', [UserController::class, 'destroy'])->name('user.delete');
+
+    // accounts
+    Route::get('/accounts', [AccountController::class, 'index'])->name('account');
+    Route::get('/account/create', [AccountController::class, 'create'])->name('account.create');
+    Route::post('/account/store', [AccountController::class, 'store'])->name('account.store');
+    Route::get('/account/{guid}/edit', [AccountController::class, 'edit'])->name('account.edit');
+    Route::post('/account/{guid}', [AccountController::class, 'update'])->name('account.update');
+    Route::get('/account/{guid}', [AccountController::class, 'destroy'])->name('account.delete');
 
 
     Route::post('/upload-image', [UploadImageController::class, 'create'])->name('media.create');

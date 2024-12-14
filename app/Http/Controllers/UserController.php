@@ -64,25 +64,7 @@ class UserController extends Controller
 
             // save image
             if (!empty($request->photo_media_id)) {
-                $media = Media::find($request->photo_media_id);
-                $extArray = explode('.', $media->name);
-                $ext = last($extArray);
-
-                $newImageName = $model->id . time() . '.' . $ext;
-                $sPath = public_path() . '/media/' . $media->name;
-                $dPath = public_path() . '/uploads/user/' . $newImageName;
-                File::copy($sPath, $dPath);
-
-                //generate thumb
-                // $dPath = public_path().'/uploads/user/thumb/'.$newImageName;
-                // $img = Image::make($sPath);
-                // // $img->resize(300, 200);
-                // $img->fit(300, 200, function ($constraint) {
-                //     $constraint->upsize();
-                // });
-                // $img->save($dPath);
-
-                $model->photo_media_id = $newImageName;
+                $model->photo_media_id = $request->photo_media_id;
                 $model->save();
             }
             $model->save();
