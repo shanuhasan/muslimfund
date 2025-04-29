@@ -80,8 +80,22 @@
                                     <div class="col-md-6">
                                         <input type="hidden" name="photo_media_id" id="photo_media_id" value="">
                                         <div class="mb-3">
-                                            <label for="image">Image</label>
+                                            <label for="image">Upload Photo</label>
                                             <div id="image" class="dropzone dz-clickable">
+                                                <div class="dz-message needsclick">
+                                                    <br>Drop files here or click to upload.<br><br>
+                                                </div>
+                                            </div>
+                                            <p class="error"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="signature_media_id" id="signature_media_id"
+                                            value="">
+                                        <div class="mb-3">
+                                            <label for="image2">Upload Signature</label>
+                                            <div id="image2" class="dropzone dz-clickable">
                                                 <div class="dz-message needsclick">
                                                     <br>Drop files here or click to upload.<br><br>
                                                 </div>
@@ -127,6 +141,28 @@
             },
             success: function(file, response) {
                 $("#photo_media_id").val(response.image_id);
+                //console.log(response)
+            }
+        });
+
+        const dropzone2 = $("#image2").dropzone({
+            init: function() {
+                this.on('addedfile', function(file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+            },
+            url: "{{ route('media.create') }}",
+            maxFiles: 1,
+            paramName: 'image',
+            addRemoveLinks: true,
+            acceptedFiles: "image/jpeg,image/png,image/gif",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(file, response) {
+                $("#signature_media_id").val(response.image_id);
                 //console.log(response)
             }
         });

@@ -20,4 +20,9 @@ class Account extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    static public function accountDetail($userId)
+    {
+        return self::where('user_id', '=', $userId)->first();
+    }
 }
